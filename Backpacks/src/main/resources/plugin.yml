@@ -1,0 +1,136 @@
+main: edu.unca.atjones.Backpacks.Backpacks
+name: Backpacks
+version: 0.1
+author: Pseudothrax
+description: More Carrying space with backpacks
+commands:
+  bkpcreate:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkpgrant:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkphelp:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkplist:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkpopen:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkpremove:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkprename:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkproute:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkproutes:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkpupgrade:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+  bkprewards:
+    description: Allow users to create inventories
+    usage: /<command> <backpack> <size>
+    
+permissions:
+  backpacks.*:
+    description: gives all basic backpack commands
+    default: true
+    children:
+      backpacks.autoreward: true
+      backpacks.create: true
+      backpacks.help: true
+      backpacks.list: true
+      backpacks.open: true
+      backpacks.rename: true
+      backpacks.route: true
+      backpacks.routes: true
+      backpacks.upgrade: true
+      backpacks.rewards: true
+    
+  backpacks.autoreward:
+    description: allows players to collect rewards by breaking blocks
+    default: true
+  backpacks.create:
+    description: allows players to create backpacks
+    default: true
+  backpacks.help:
+    description: allows access to the backpacks help
+    default: true
+  backpacks.list:
+    description: allows players to view a list of backpacks
+    default: true
+  backpacks.open:
+    description: allows players to open backpacks
+    default: true
+  backpacks.rename:
+    description: allows players to rename backpacks
+    default: true
+  backpacks.route:
+    description: allows players to route items 
+    default: true
+  backpacks.routes:
+    description: allows players to view a list of routes
+    default: true
+  backpacks.upgrade:
+    description: allows players to upgrade backpacks
+    default: true
+  backpacks.rewards:
+    description: allows players to view their available rewards
+    default: true
+    
+  backpacks.admin.*:
+    description: gives all admin backpack commands
+    default: op
+    children:
+      backpacks.admin.create: true
+      backpacks.admin.help: true
+      backpacks.admin.grant: true
+      backpacks.admin.list: true
+      backpacks.admin.open: true
+      backpacks.admin.rename: true
+      backpacks.admin.remove: true
+      backpacks.admin.route: true
+      backpacks.admin.routes: true
+      backpacks.admin.upgrade: true
+      backpacks.admin.rewards: true
+    
+  backpacks.admin.create:
+    description: allows admins to create backpacks for anyone
+    default: op
+  backpacks.admin.help:
+    description: allows access to the backpacks admin help
+    default: op
+  backpacks.admin.grant:
+    description: allows admins to reward players
+    default: op
+  backpacks.admin.list:
+    description: allows admins to view a list of anyone's backpacks
+    default: op
+  backpacks.admin.open:
+    description: allows admins to open anyone's backpack
+    default: op
+  backpacks.admin.rename:
+    description: allows admins to view a list of anyone's backpacks
+    default: op
+  backpacks.admin.remove:
+    description: allows admins to destroy anyone's backpacks
+    default: op
+  backpacks.admin.route:
+    description: allows admins to route anyone's items
+    default: op
+  backpacks.admin.routes:
+    description: allows admins to view a list of anyone's routes
+    default: op
+  backpacks.admin.upgrade:
+    description: allows admins to upgrade anyone's backpack
+    default: op
+  backpacks.admin.rewards:
+    description: allows admins to view anyone's available rewards
+    default: op
