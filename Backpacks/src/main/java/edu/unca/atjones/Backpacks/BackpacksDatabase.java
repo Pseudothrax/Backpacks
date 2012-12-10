@@ -193,7 +193,6 @@ public class BackpacksDatabase {
 		} catch(SQLException e) {
 			plugin.logger.warn("Failed query for table backpacks.");
 			plugin.logger.warn(e.getMessage());
-			return;
 		}
 		return null;
 	}
