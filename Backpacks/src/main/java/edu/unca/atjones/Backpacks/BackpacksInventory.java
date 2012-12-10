@@ -161,9 +161,6 @@ public class BackpacksInventory extends CraftInventory {
                     this.items[i].b = 5;
                     itemstack.count = 0;
                     return true;
-                } else if (this.owner.abilities.canInstantlyBuild) {
-                    itemstack.count = 0;
-                    return true;
                 } else {
                     return false;
                 }
@@ -173,12 +170,7 @@ public class BackpacksInventory extends CraftInventory {
                     itemstack.count = this.e(itemstack);
                 } while (itemstack.count > 0 && itemstack.count < i);
 
-                if (itemstack.count == i && this.owner.abilities.canInstantlyBuild) {
-                    itemstack.count = 0;
-                    return true;
-                } else {
-                    return itemstack.count < i;
-                }
+                return itemstack.count < i;
             }
         }
         public ItemStack splitWithoutUpdate(int i) {

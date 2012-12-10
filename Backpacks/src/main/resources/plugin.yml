@@ -5,38 +5,38 @@ author: Pseudothrax
 description: More Carrying space with backpacks
 commands:
   bkpcreate:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: Create backpacks
+    usage: /<command> <backpack> <size> [player]
   bkpgrant:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: Grant rewards to users
+    usage: /<command> <player> <num>|1
   bkphelp:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: View usage tips
+    usage: /<command>
   bkplist:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: View a list of backpacks
+    usage: /<command> [player]
   bkpopen:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: Open backpacks
+    usage: /<command> <backpack> [player]
   bkpremove:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: Remove backpacks
+    usage: /<command> <backpack> [player]
   bkprename:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: Rename backpacks
+    usage: /<command> <old> <new> [player]
   bkproute:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: Route items into backpacks
+    usage: /<command> <item> <backpack> [player]
   bkproutes:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: View all defined routes
+    usage: /<command> [player]
   bkpupgrade:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: Upgrade a backpack
+    usage: /<command> <backpack> [player]
   bkprewards:
-    description: Allow users to create inventories
-    usage: /<command> <backpack> <size>
+    description: View available reward count
+    usage: /<command> [player]
     
 permissions:
   backpacks.*:
@@ -90,7 +90,6 @@ permissions:
     default: op
     children:
       backpacks.admin.create: true
-      backpacks.admin.help: true
       backpacks.admin.grant: true
       backpacks.admin.list: true
       backpacks.admin.open: true
@@ -103,9 +102,6 @@ permissions:
     
   backpacks.admin.create:
     description: allows admins to create backpacks for anyone
-    default: op
-  backpacks.admin.help:
-    description: allows access to the backpacks admin help
     default: op
   backpacks.admin.grant:
     description: allows admins to reward players

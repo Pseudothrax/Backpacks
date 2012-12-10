@@ -1,11 +1,13 @@
 package edu.unca.atjones.Backpacks;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Backpacks extends JavaPlugin {
@@ -17,7 +19,7 @@ public class Backpacks extends JavaPlugin {
 	
 	BackpacksLogger logger;
 	
-	public BackpacksDatabase database;
+	//public BackpacksDatabase database;
 	
     @Override
     public void onEnable() {
@@ -25,7 +27,7 @@ public class Backpacks extends JavaPlugin {
 		logger = new BackpacksLogger(this);
 		logger.info("plugin enabled");
 		
-		database = new BackpacksDatabase(this);
+		//database = new BackpacksDatabase(this);
 		
 		backpacks = new HashMap<String,HashMap<String,BackpacksInventory>>();
 		routes = new HashMap<String,HashMap<Integer,String>>();
@@ -54,7 +56,7 @@ public class Backpacks extends JavaPlugin {
     
     @Override
     public void onDisable() {
-    	database.close();
+    	//database.close();
     }
     
     /**
@@ -62,7 +64,7 @@ public class Backpacks extends JavaPlugin {
      * 
      * TODO: This method doesn't allow a non-owner viewer.
      */
-    public void showBackpack(Player owner,String name) throws BackpacksException {
+    public void openBackpack(Player viewer, Player owner,String name) throws BackpacksException {
     	if(name == null) {
     		throw new BackpacksException("Must provide a backpack name.");
     	}
@@ -73,8 +75,8 @@ public class Backpacks extends JavaPlugin {
     	if(!invs.containsKey(name)){
     		throw new BackpacksException("You have no backpack called " + name);
     	}
-    	BackpacksInventory inv = (BackpacksInventory) invs.get(name);
-    	owner.openInventory(inv);
+    	BackpacksInventory inv = invs.get(name);
+    	viewer.openInventory(inv);
     }
     
     /**
@@ -109,12 +111,13 @@ public class Backpacks extends JavaPlugin {
     	if(backpacks.containsKey(owner.getName())) {
     		HashMap<String,BackpacksInventory> invs = backpacks.get(owner.getName());
     		if(invs.containsKey(name)) {
-    			Inventory i = invs.get(name);
-    			if(i.getSize() != 27){
-    				int size = i.getSize() + 9;
-    				BackpacksInventory I = new BackpacksInventory(owner, size, name);
-    				I.setContents(i.getContents());
-    				invs.put(name, I);
+    			BackpacksInventory backpack = invs.get(name);
+    			if(backpack.getSize() != 27){
+    				int size = backpack.getSize() + 9;
+    				ItemStack[] contents = backpack.getContents();
+    				backpack = new BackpacksInventory(owner, size, name);
+    				backpack.setContents(contents);
+    				invs.put(name, backpack);
     				backpacks.put(owner.getName(), invs);
     			} else throw new BackpacksException("Backpack cannot be upgraded (Too large)");
     		}
@@ -138,15 +141,60 @@ public class Backpacks extends JavaPlugin {
     }
     
     /**
-     * Returns a list of backpack names owned by the given player.
+     * Renames a backpack.
      */
-    public Set<String> listBackpacks(Player owner) throws BackpacksException {
+    public void renameBackpack(Player owner, String oldName, String newName) throws BackpacksException {
+    	if(backpacks.containsKey(owner.getName())) {
+    		HashMap<String,BackpacksInventory> invs = backpacks.get(owner.getName());
+    		if(invs.containsKey(oldName)) {
+    			BackpacksInventory backpack = invs.get(oldName);
+    			int size = backpack.getSize();
+    			ItemStack[] contents = backpack.getContents();
+    			backpack = new BackpacksInventory(owner, size, newName);
+    			backpack.setContents(contents);
+    			invs.put(newName, backpack);
+    			invs.remove(oldName);
+    			backpacks.put(owner.getName(), invs);
+    		}
+    		else throw new BackpacksException("Backpack not found.");
+    	} 
+    	else throw new BackpacksException(String.format("%s has no backpacks.",owner.getName()));
+    }
+    
+    /**
+     * Shows viewer a list of backpacks for owner.
+     */
+    public boolean listBackpacks(Player viewer, Player owner) {
     	if(backpacks.containsKey(owner.getName())) {
     		HashMap<String,BackpacksInventory> invs = backpacks.get(owner.getName());
     		Set<String> names = invs.keySet();
-    		return names;
+			Iterator<String> iterator = names.iterator();
+			while(iterator.hasNext()) {
+				viewer.sendMessage(iterator.next());
+			}
+			return true;
     	} 
-    	else throw new BackpacksException("Player has no backpacks.");
+    	else return false;
+    }
+    
+    /**
+     * Shows viewer a list of routes for owner.
+     */
+    public boolean listRoutes(Player viewer, Player owner) {
+    	String playerName = owner.getName();
+		if(routes.containsKey(playerName)) {
+			HashMap<Integer,String> routeMap = routes.get(playerName);
+			Set<Integer> keys = routeMap.keySet();
+			Iterator<Integer> iterator = keys.iterator();
+			while(iterator.hasNext()) {
+				int id = iterator.next();
+				String backpack = routeMap.get(id);
+				String str = Material.getMaterial(id).name();
+				viewer.sendMessage(String.format("  %s -> %s",str,backpack));
+			}
+			return true;
+		}
+		else return false;
     }
     
     /**
