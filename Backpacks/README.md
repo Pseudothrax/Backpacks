@@ -1,18 +1,8 @@
-SampleBukkitPlugin
+Backpacks Plugin
 ======
 
-This is a sample plug-in for the Bukkit API. It requires a CraftBukkit server.
-Bukkit can be found at [http://bukkit.org](http://bukkit.org) 
+This is a plugin Bukkit API v1.3.2-B1.0.
 
-The goal of this sample plug-in is to provide a base for other plug-ins. This
-plugin has a main class named SamplePlugin, one CommandExecutor named
-SampleCommandExecutor and one Listener named SampleListener.
-
-This plug-in provides the ability for a login message to be sent to players
-connecting. A player with the "sample.message" permissions can set the message.
-Ops by default have this permission.
-
-This plugin serves as a basis for the BukkitPlugin-archetype (https://github.com/SagaciousZed/BukkitPlugin-archetype)
 
 Compilation
 -----------

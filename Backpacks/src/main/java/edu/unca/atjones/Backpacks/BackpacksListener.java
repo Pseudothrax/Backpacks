@@ -66,14 +66,11 @@ public class BackpacksListener implements Listener {
     	if(p.hasPermission("backpacks.autoreward")) {
     		if(plugin.blocks.containsKey(playerName)) {
         		int count = plugin.blocks.get(playerName) + 1;
+        		plugin.blocks.put(playerName, count);
         		double log10 = Math.log10(count);
-        		if((int)log10 == (int)Math.floor(log10)) {
-        			plugin.blocks.put(playerName, 0);
+        		if(Math.floor(log10) == log10) {
         			plugin.grantReward(p,1);
-        			p.sendMessage("%d blocks broken! You can upgrade of add an inventory");
-        		}
-        		else {
-        			plugin.blocks.put(playerName, count);
+        			p.sendMessage(String.format("%d blocks broken! Have a reward.",count));
         		}
         	} else {
         		plugin.blocks.put(playerName, 1);
