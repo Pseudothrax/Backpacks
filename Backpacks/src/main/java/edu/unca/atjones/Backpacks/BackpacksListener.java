@@ -38,7 +38,7 @@ public class BackpacksListener implements Listener {
         this.plugin = plugin;
     }
     
-    /*@EventHandler
+    @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
     	Player player = event.getPlayer();
     	String playerName = player.getName();
@@ -51,12 +51,14 @@ public class BackpacksListener implements Listener {
     			plugin.database.storeBackpack(player, backpack);
     		}
     	}
-    }*/
+    }
     
-    /*@EventHandler
+    @EventHandler
     public void onPlayerLogin(PlayerLoginEvent event) {
-    	
-    }*/
+    	Player player = event.getPlayer();
+    	String playerName = player.getName();
+    	plugin.backpacks.put(playerName, plugin.database.loadBackpacks(player));
+    }
     
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
