@@ -1,6 +1,6 @@
 main: edu.unca.atjones.Backpacks.Backpacks
 name: Backpacks
-version: 0.1
+version: 0.2
 author: Pseudothrax
 description: More Carrying space with backpacks
 commands:
