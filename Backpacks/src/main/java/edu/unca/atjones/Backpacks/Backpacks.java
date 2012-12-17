@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,7 +18,7 @@ public class Backpacks extends JavaPlugin {
 	
 	BackpacksLogger logger;
 	
-	//public BackpacksDatabase database;
+	public BackpacksDatabase database;
 	
     @Override
     public void onEnable() {
@@ -27,7 +26,7 @@ public class Backpacks extends JavaPlugin {
 		logger = new BackpacksLogger(this);
 		logger.info("plugin enabled");
 		
-		//database = new BackpacksDatabase(this);
+		database = new BackpacksDatabase(this);
 		
 		backpacks = new HashMap<String,HashMap<String,BackpacksInventory>>();
 		routes = new HashMap<String,HashMap<Integer,String>>();
@@ -56,15 +55,13 @@ public class Backpacks extends JavaPlugin {
     
     @Override
     public void onDisable() {
-    	//database.close();
+    	database.close();
     }
     
     /**
      * Opens the backpack specified by the given name owned by the given player
-     * 
-     * TODO: This method doesn't allow a non-owner viewer.
      */
-    public void openBackpack(Player viewer, Player owner,String name) throws BackpacksException {
+    public void openBackpack(Player viewer, Player owner, String name) throws BackpacksException {
     	if(name == null) {
     		throw new BackpacksException("Must provide a backpack name.");
     	}

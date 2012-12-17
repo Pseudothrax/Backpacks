@@ -8,7 +8,6 @@ import java.util.ListIterator;
 import lib.PatPeter.SQLibrary.SQLite;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class BackpacksDatabase {
