@@ -167,6 +167,7 @@ public class BackpacksDatabase {
 			ResultSet backpackSelectR = sqlite.query(String.format(backpackSelectQ,playerName));
 			if(backpackSelectR == null) plugin.logger.info("Select failed");
 			else {
+				HashMap<String,BackpacksInventory> playerBackpacks = new HashMap<String,BackpacksInventory>();
 				if(backpackSelectR.next()) do {
 					int backpackId = backpackSelectR.getInt("id");
 					String name = backpackSelectR.getString("name");
@@ -182,10 +183,13 @@ public class BackpacksDatabase {
 							int slot = slotSelectR.getInt("slot");
 							int materialId = slotSelectR.getInt("material");
 							int amount = slotSelectR.getInt("amount");
+							backpack.setItem(slot, new ItemStack(materialId,amount));
 						} while(slotSelectR.next());
 					}
+					playerBackpacks.put(name, backpack);
 				} while(backpackSelectR.next());
-				else plugin.logger.info("Select gave no results.");
+				else return new HashMap<String,BackpacksInventory>();
+				return playerBackpacks;
 			}
 			
 			
